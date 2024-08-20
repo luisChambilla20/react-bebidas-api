@@ -15,6 +15,7 @@ export const Header = () => {
   const fetchCategories = useAppStore((state) => state.fetchCategories);
   const categories = useAppStore((state) => state.categories);
   const searchRecipes = useAppStore((state) => state.searchRecipes);
+  const showNotification = useAppStore((state) => state.showNotification);
 
   useEffect(() => {
     fetchCategories();
@@ -34,6 +35,10 @@ export const Header = () => {
     e.preventDefault();
 
     if (Object.values(searchFilter).some((value) => value === "")) {
+      showNotification({
+        error: true,
+        text: "Todos los campos son requeridos",
+      });
       return;
     } else {
       setSearchFilter({
